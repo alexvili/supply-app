@@ -90,15 +90,12 @@ class App extends Component {
               storeValidation={this.storeValidation}
               isStoreLimitReached={this.state.stores.length >= STORE_LIMIT}
             />
-
-            <div className="store-charts card">
-              <StocksChart
-                series={this.state.stores.map((store) => ({
-                  name: `${store.name} (l)`,
-                  data: store.waterStockAmount,
-                }))}
-              />
-            </div>
+            <StocksChart
+              series={this.state.stores.map((store) => ({
+                name: store.name,
+                data: store.waterStockAmount,
+              }))}
+            />
           </div>
         </section>
       </div>

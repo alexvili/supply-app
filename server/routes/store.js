@@ -1,5 +1,6 @@
 const router = require("express").Router();
 let storeDB = require("../db");
+let StoreValidation = require("../validation/StoreValidation");
 
 const getRandomValue = (min, max) => {
   min = Math.ceil(min);
@@ -32,7 +33,11 @@ router.route("/:uid").get((req, res) => {
 router.route("/").post((req, res) => {
   const { store } = req.body;
 
-  // TODO: input validation
+  let resp = StoreValidation.validate(store);
+  if (resp.error) {
+    return res.status(400).send(resp.error.message);
+  }
+
   store.waterStockAmount = stockGenerator();
   storeDB.push(store);
 

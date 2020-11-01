@@ -1,4 +1,62 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap");
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: "Lato", sans-serif;
+  color: #333;
+  line-height: 1.6;
+  background-color: #047aed;
+  overflow: hidden;
+  position: relative;
+}
+
+ul {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+h1,
+h2 {
+  font-weight: 300;
+  line-height: 1.2;
+  margin: 10px 0;
+}
+
+p {
+  margin: 10px 0;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+img {
+  width: 100%;
+}
+
+video {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
 .container {
   max-width: 1300px;
   margin: 0 auto;
@@ -57,7 +115,7 @@
   display: grid;
   -ms-grid-columns: (1fr)[2];
       grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
+  grid-gap: 20px;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -70,64 +128,6 @@
 .error {
   color: #f00;
   height: 30px;
-}
-
-* {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
-body {
-  font-family: "Lato", sans-serif;
-  color: #333;
-  line-height: 1.6;
-  background-color: #047aed;
-  overflow: hidden;
-  position: relative;
-}
-
-ul {
-  list-style-type: none;
-}
-
-a {
-  text-decoration: none;
-  color: #333;
-}
-
-h1,
-h2 {
-  font-weight: 300;
-  line-height: 1.2;
-  margin: 10px 0;
-}
-
-p {
-  margin: 10px 0;
-}
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-input[type="number"] {
-  -moz-appearance: textfield;
-}
-
-img {
-  width: 100%;
-}
-
-video {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
 }
 
 .header {
@@ -208,35 +208,32 @@ video {
 
 .store .grid {
   overflow: visible;
-  -ms-grid-columns: (1fr)[3];
-      grid-template-columns: repeat(3, 1fr);
-  -ms-grid-rows: repear(2, 1fr);
-      grid-template-rows: repear(2, 1fr);
-  gap: 20px;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
-}
-
-.store .grid .store-charts {
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 2;
-  grid-column: 1 / span 2;
+  -ms-grid-columns: 1.5fr 1fr;
+      grid-template-columns: 1.5fr 1fr;
+  -ms-grid-rows: 0.8fr 1.2fr;
+      grid-template-rows: 0.8fr 1.2fr;
+      grid-template-areas: "list form" "chart chart";
+  grid-gap: 20px;
 }
 
 .store .store-list {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: list;
   background-color: rgba(255, 255, 255, 0.8);
   position: relative;
-  top: 10px;
   height: 350px;
-  max-width: 700px;
+  width: 100%;
+  min-width: 350px;
+  max-width: 800px;
   padding: 0;
-  justify-self: flex-start;
+  margin: 0 auto;
+  -ms-flex-item-align: end;
+      -ms-grid-row-align: end;
+      align-self: end;
 }
 
 .store .store-list ul {
-  position: relative;
-  width: 700px;
   margin: 0 auto;
   padding: 13px 7px;
   -webkit-box-sizing: border-box;
@@ -262,15 +259,20 @@ video {
 }
 
 .store .store-list ul li span:nth-child(1) {
-  width: 30px;
+  min-width: 20px;
+  max-width: 30px;
 }
 
 .store .store-list ul li span:nth-child(2) {
-  width: 400px;
+  width: 100%;
+  min-width: 150px;
+  max-width: 400px;
 }
 
 .store .store-list ul li span:nth-child(3) {
-  width: 250px;
+  width: 100%;
+  min-width: 150px;
+  max-width: 300px;
 }
 
 .store .store-list ul li span:nth-child(4) {
@@ -328,13 +330,20 @@ video {
 }
 
 .store .store-form {
+  -ms-grid-row: 1;
+  -ms-grid-column: 2;
+  grid-area: form;
   background-color: rgba(255, 255, 255, 0.8);
   position: relative;
-  top: 10px;
   height: 350px;
-  width: 400px;
+  width: 100%;
+  min-width: 300px;
+  max-width: 500px;
   padding: 40px;
-  justify-self: flex-end;
+  margin: 0 auto;
+  -ms-flex-item-align: end;
+      -ms-grid-row-align: end;
+      align-self: end;
 }
 
 .store .store-form .form-control {
@@ -364,11 +373,38 @@ video {
 }
 
 .store .store-charts {
-  width: 1140px;
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 2;
+  grid-area: chart;
+  position: relative;
+  width: 100%;
+  min-width: 400px;
+  max-width: 1300px;
   height: 450px;
   margin: 0 auto 50px;
-  -ms-grid-column-align: start;
-      justify-self: start;
+  -ms-flex-item-align: start;
+      -ms-grid-row-align: start;
+      align-self: start;
   background-color: rgba(255, 255, 255, 0.8);
+}
+
+@media (max-width: 768px) {
+  .store .grid {
+    overflow: auto;
+    -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+    -ms-grid-rows: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-areas: "form" "list" "chart";
+  }
+  .store .container {
+    padding: 10px 10px;
+  }
+  .store .store-form {
+    -ms-flex-item-align: start;
+        -ms-grid-row-align: start;
+        align-self: start;
+  }
 }
 /*# sourceMappingURL=App.css.map */

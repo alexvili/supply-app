@@ -1,62 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap");
 @import "./variables";
+@import "./defaults";
 @import "./utilities";
-
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
-body {
-  font-family: "Lato", sans-serif;
-  color: #333;
-  line-height: 1.6;
-  background-color: $primary-color;
-  overflow: hidden;
-  position: relative;
-}
-
-ul {
-  list-style-type: none;
-}
-
-a {
-  text-decoration: none;
-  color: #333;
-}
-
-h1,
-h2 {
-  font-weight: 300;
-  line-height: 1.2;
-  margin: 10px 0;
-}
-
-p {
-  margin: 10px 0;
-}
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-input[type="number"] {
-  -moz-appearance: textfield;
-}
-
-img {
-  width: 100%;
-}
-
-video {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
 
 .header {
   position: relative;
@@ -125,28 +70,27 @@ video {
   padding-top: 0px;
   .grid {
     overflow: visible;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repear(2, 1fr);
-    gap: 20px;
-    align-items: flex-start;
-
-    .store-charts {
-      grid-column: 1 / span 2;
-    }
+    grid-template-columns: 1.5fr 1fr;
+    grid-template-rows: 0.8fr 1.2fr;
+    grid-template-areas:
+      "list form"
+      "chart chart";
+    grid-gap: 20px;
   }
 
   .store-list {
+    grid-area: list;
     background-color: rgba(255, 255, 255, 0.8);
     position: relative;
-    top: 10px;
     height: 350px;
-    max-width: 700px;
+    width: 100%;
+    min-width: 350px;
+    max-width: 800px;
     padding: 0;
-    justify-self: flex-start;
+    margin: 0 auto;
+    align-self: end;
 
     ul {
-      position: relative;
-      width: 700px;
       margin: 0 auto;
       padding: 13px 7px;
       box-sizing: border-box;
@@ -164,13 +108,18 @@ video {
         transition: 0.5s;
 
         span:nth-child(1) {
-          width: 30px;
+          min-width: 20px;
+          max-width: 30px;
         }
         span:nth-child(2) {
-          width: 400px;
+          width: 100%;
+          min-width: 150px;
+          max-width: 400px;
         }
         span:nth-child(3) {
-          width: 250px;
+          width: 100%;
+          min-width: 150px;
+          max-width: 300px;
         }
         span:nth-child(4) {
           width: 20px;
@@ -206,7 +155,6 @@ video {
       }
       li:hover {
         transform: scale(1.01);
-        // background-color: rgba(4, 122, 237, 0.8);
         background-color: $primary-color;
         color: #fff;
         box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
@@ -218,13 +166,16 @@ video {
   }
 
   .store-form {
+    grid-area: form;
     background-color: rgba(255, 255, 255, 0.8);
     position: relative;
-    top: 10px;
     height: 350px;
-    width: 400px;
+    width: 100%;
+    min-width: 300px;
+    max-width: 500px;
     padding: 40px;
-    justify-self: flex-end;
+    margin: 0 auto;
+    align-self: end;
 
     .form-control {
       margin: 20px 0;
@@ -250,10 +201,34 @@ video {
   }
 
   .store-charts {
-    width: 1140px;
+    grid-area: chart;
+    position: relative;
+    width: 100%;
+    min-width: 400px;
+    max-width: 1300px;
     height: 450px;
     margin: 0 auto 50px;
-    justify-self: start;
+    align-self: start;
     background-color: rgba(255, 255, 255, 0.8);
+  }
+}
+
+@media (max-width: 768px) {
+  .store {
+    .grid {
+      overflow: auto;
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr 1fr 1fr;
+      grid-template-areas:
+        "form"
+        "list"
+        "chart";
+    }
+    .container {
+      padding: 10px 10px;
+    }
+    .store-form {
+      align-self: start;
+    }
   }
 }

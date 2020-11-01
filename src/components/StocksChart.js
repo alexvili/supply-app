@@ -1,4 +1,5 @@
-import React, { PureComponent } from "react";
+import React, { PureComponent, createRef } from "react";
+import _ from "underscore";
 import Chart from "react-apexcharts";
 
 class StocksChart extends PureComponent {
@@ -42,25 +43,54 @@ class StocksChart extends PureComponent {
           },
         },
       },
+      width: 1100,
+      height: 400,
     };
+
+    this.container = createRef();
+  }
+
+  componentDidMount() {
+    this.setState({
+      width: this.container.current.offsetWidth - 50,
+    });
+    window.addEventListener("resize", this.updateChartSizeThrottled);
   }
 
   componentDidUpdate() {
-    this.setState((prevState) => ({ ...prevState, series: this.props.series }));
+    this.setState({
+      series: this.props.series,
+    });
   }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updateChartSizeThrottled);
+  }
+
+  updateChartSize = () => {
+    if (this.container?.current) {
+      this.setState({
+        width: this.container.current.offsetWidth - 50,
+      });
+    }
+  };
+
+  updateChartSizeThrottled = _.throttle(this.updateChartSize, 200);
 
   render() {
     return (
-      <div className="app">
-        <div className="row">
-          <div className="mixed-chart">
-            <Chart
-              options={this.state.options}
-              series={this.state.series}
-              type="area"
-              width="1100"
-              height="400"
-            />
+      <div className="store-charts card" ref={this.container}>
+        <div className="app">
+          <div className="row">
+            <div className="mixed-chart">
+              <Chart
+                options={this.state.options}
+                series={this.state.series}
+                type="area"
+                width={this.state.width}
+                height={this.state.height}
+              />
+            </div>
           </div>
         </div>
       </div>

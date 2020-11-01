@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import axios from "axios";
-import "./App.css";
+import "./css/App.css";
 import StoreList from "./components/StoreList";
 import StoreForm from "./components/StoreForm";
+import Header from "./components/Header";
+import StocksChart from "./components/StocksChart";
 
 const STORE_URL = "http://localhost:5000/store/";
+const STORE_LIMIT = 8;
 
 class App extends Component {
   constructor(props) {
@@ -74,12 +77,30 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <StoreForm
-          addStore={this.addStore}
-          storeValidation={this.storeValidation}
-        />
-        Store list:
-        <StoreList stores={this.state.stores} removeStore={this.removeStore} />
+        <Header />
+        <video src="./assets/drops.mp4" autoPlay loop muted></video>
+        <section className="store">
+          <div className="container grid">
+            <StoreList
+              stores={this.state.stores}
+              removeStore={this.removeStore}
+            />
+            <StoreForm
+              addStore={this.addStore}
+              storeValidation={this.storeValidation}
+              isStoreLimitReached={this.state.stores.length >= STORE_LIMIT}
+            />
+
+            <div className="store-charts card">
+              <StocksChart
+                series={this.state.stores.map((store) => ({
+                  name: `${store.name} (l)`,
+                  data: store.waterStockAmount,
+                }))}
+              />
+            </div>
+          </div>
+        </section>
       </div>
     );
   }

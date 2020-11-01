@@ -1,11 +1,14 @@
 import React from "react";
 
-export default function Store({ store, removeStore }) {
+export default function Store({ index, store, removeStore }) {
   return (
-    <div>
-      <span>{store.name}</span>-<span>{store.uid}</span>-
-      <span>{JSON.stringify(store.waterStockAmount)}</span>
-      <button onClick={() => removeStore(store.uid)}>Remove</button>
-    </div>
+    <li>
+      <span>{index}</span>
+      <span>{store.name}</span>
+      <span>{store.uid}</span>
+      <span className="store-remove">
+        <i className="fas fa-trash" onClick={() => removeStore(store.uid)}></i>
+      </span>
+    </li>
   );
 }

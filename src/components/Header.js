@@ -12,7 +12,9 @@ export default function Header() {
             <i className="fa fa-angle-down"></i>
           </button>
           <div className="dropdown-content">
+            {/* eslint-disable-next-line */}
             <a>Settings</a>
+            {/* eslint-disable-next-line */}
             <a>Sign out</a>
           </div>
         </div>

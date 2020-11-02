@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import Error from "./Error";
 
@@ -7,13 +7,10 @@ export default function StoreForm({
   storeValidation,
   isStoreLimitReached,
 }) {
-  const [name, setName] = useState("");
-  const [uid, setUid] = useState("");
   const { handleSubmit, register, errors } = useForm();
-  const onSubmit = (values) => {
+  const onSubmit = (values, e) => {
     addStore(values);
-    setName("");
-    setUid("");
+    e.target.reset();
   };
 
   return (
@@ -25,8 +22,6 @@ export default function StoreForm({
             type="text"
             name="name"
             placeholder="Store Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
             ref={register({
               required: { value: true, message: "Is required." },
               minLength: { value: 2, message: "Minimum length is 2." },
@@ -48,8 +43,6 @@ export default function StoreForm({
             type="number"
             name="uid"
             placeholder="Store Unique Identifier"
-            value={uid}
-            onChange={(e) => setUid(e.target.value)}
             ref={register({
               required: {
                 value: true,
@@ -57,11 +50,11 @@ export default function StoreForm({
               },
               min: {
                 value: 100000000,
-                message: "Minimum value is 100000000.",
+                message: "Must have 9 digits.",
               },
               max: {
                 value: 999999999,
-                message: "Maximum value is 999999999",
+                message: "Must have 9 digits.",
               },
               validate: async (value) => {
                 if (!value) return;
